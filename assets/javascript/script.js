@@ -1,19 +1,34 @@
-const questionArea = document.querySelector("#question");
+const timerArea = document.querySelector("#timer-area");
+const timeRemaining = document.querySelector("#time-remaining");
+const gameArea = document.querySelector("#game-area");
+const header = document.querySelector("#header");
+const introArea = document.querySelector("#intro-area")
+const intro = document.querySelector("#intro");
+const questionArea = document.querySelector("#question-area");
+const question = document.querySelector("#question");
+const scoreboardArea = document.querySelector("#scoreboard-area");
 const scoreboard = document.querySelector("#scoreboard");
+// areas and content of doc
+const startBtn = document.querySelector("#start");
 const scoreboardBtn = document.querySelector("#high-score");
 const resetBtn = document.querySelector("#reset");
-const timeRemaining = document.querySelector("#time-remaining");
-const timerDoc = document.querySelector("#timer");
-const startBtn = document.querySelector("#start");
 const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
 const btn3 = document.querySelector("#btn3");
 const btn4 = document.querySelector("#btn4");
-const intro = document.querySelector("#intro");
-const questionDoc = document.querySelector("#question");
-const answerBtns = document.querySelector("#answer-buttons")
-let currentAnswer, score, timeLeft;
+// buttons on doc
+let currentAnswer, score, timeLeft, timeInterval;
+var answeredQuestions = 0;
+var leaderboard = [];
+var storedLeaderboard = JSON.parse(localStorage.getItem('highScore'));
+console.log(storedLeaderboard);
+// global variables
 
+
+// var pull = JSON.parse(localStorage.getItem('data'))
+// for (var i = 0; i < pull.length; i++) {
+//     new arrayName(pull[i].AnyName, pull[i].AnyName, pull[i].AnyName)
+// }
 var questions = [
     {
         question: 'test1',
@@ -79,6 +94,7 @@ function selectAnswer(event) {
     }
 
     if (questions.length === 0) {
+        clearInterval(timeInterval);
         score = timeLeft;
         enterHighScore();
     } else {
@@ -121,21 +137,12 @@ function nextQuestion() {
     btn2.addEventListener("click", selectAnswer);
     btn3.addEventListener("click", selectAnswer);
     btn4.addEventListener("click", selectAnswer);
-} 
+}
 
-function game() {
-    startBtn.classList.add("hidden");
-    scoreboardBtn.classList.add("hidden");
-    intro.classList.add("hidden");
-    resetBtn.classList.add("hidden");
-    questionDoc.classList.remove("hidden")
-    answerBtns.classList.remove("hidden")
-    timerDoc.classList.remove("hidden");
-
-
-    // timer
+function timer() {
     timeLeft = 50;
-    var timeInterval = setInterval(function () {
+    // var 
+    timeInterval = setInterval(function () {
         if (timeLeft > 1) {
             timeRemaining.textContent = timeLeft + ' seconds remaining';
             timeLeft--;
@@ -145,15 +152,34 @@ function game() {
         } else {
             alert("Better luck next time. Please try again.");
             clearInterval(timeInterval);
+            introArea.classList.remove("hidden");
+            questionArea.classList.add("hidden");
+            timerArea.classList.add("hidden");
             startBtn.classList.remove("hidden");
             scoreboardBtn.classList.remove("hidden");
-            intro.classList.remove("hidden");
-            questionDoc.classList.add("hidden");
-            timerDoc.classList.add("hidden");
-            answerBtns.classList.add("hidden");
+            btn1.classList.add("hidden");
+            btn2.classList.add("hidden");
+            btn3.classList.add("hidden");
+            btn4.classList.add("hidden");
             return;
         }
     }, 1000);
+}
+
+function game() {
+    timerArea.classList.remove("hidden");
+    introArea.classList.add("hidden");
+    questionArea.classList.remove("hidden");
+    scoreboardArea.classList.add("hidden");
+    startBtn.classList.add("hidden");
+    scoreboardBtn.classList.add("hidden");
+    resetBtn.classList.add("hidden");
+    btn1.classList.remove("hidden");
+    btn2.classList.remove("hidden");
+    btn3.classList.remove("hidden");
+    btn4.classList.remove("hidden");
+
+    timer();
     nextQuestion();
 }
 
@@ -182,23 +208,38 @@ startBtn.addEventListener("click", game)
 // What does is do?
 // its a button that
 scoreboardBtn.addEventListener("click", viewHighScores);
-
+resetBtn.addEventListener("click", reset);
 // replaces .question with </table> containing data from local storage and
 // shows reset button, hides .text-area, and show </table> containing data from lS
 function viewHighScores() {
-    questionArea.classList.add("hidden");
+    populateScoreboard();
+    introArea.classList.add("hidden");
     scoreboardBtn.classList.add("hidden");
-    scoreboard.classList.remove("hidden");
+    scoreboardArea.classList.remove("hidden");
     resetBtn.classList.remove("hidden");
+
 }
 //   ***Reset Button***
 // what does it do?
 // clears local storage then rerenders </ol>
-function reset() {
-    clear();
+function reset() {   
+    while (scoreboard.firstChild) {
+        scoreboard.removeChild(scoreboard.firstChild);
+    }
+    localStorage.clear(); 
 }
 // function to enter high score
 function enterHighScore() {
+    introArea.classList.remove("hidden");
+    questionArea.classList.add("hidden");
+    timerArea.classList.add("hidden");
+    startBtn.classList.remove("hidden");
+    scoreboardBtn.classList.remove("hidden");
+    btn1.classList.add("hidden");
+    btn2.classList.add("hidden");
+    btn3.classList.add("hidden");
+    btn4.classList.add("hidden");
+
     let initials = prompt("Please enter your initials.", "AAA");
 
     if (initials === null) {
@@ -208,17 +249,56 @@ function enterHighScore() {
         alert("Initials must be 3 or less characters.")
         enterHighScore;
     } else {
-        localStorage.setItem(initials, score);
-        populateScoreboard;
+        console.log(leaderboard)
+        var highScore = {initials, score};
+        leaderboard.push(highScore);
+        leaderboard.sort((firstItem, secondItem) => firstItem.score - secondItem.score);
+        leaderboard.reverse();
+        localStorage.setItem('highScore', JSON.stringify(leaderboard));
+        window.location.reload();
     }
 }
 
 // populate scoreboard
-function populateScoreboard() {
 
+function populateScoreboard() {
+    while (scoreboard.firstChild) {
+        scoreboard.removeChild(scoreboard.firstChild);
+    }
+    scoreboard.innerHTML = "";
+    console.log("start of PS")
+    for (var i = 0; i < leaderboard.length; i++) {
+        var leaderboardA = leaderboard[i].initials;
+        var leaderboardB = leaderboard[i].score;
+        console.log(leaderboardA);
+        var li = document.createElement("li");
+        li.textContent = leaderboardA + ": " + leaderboardB;
+        li.setAttribute("data-index", i);
+
+        scoreboard.appendChild(li);
+        console.log("end og populateScoreboard")
+    }
 }
 
+function init() {
+
+    timerArea.classList.add("hidden");
+    questionArea.classList.add("hidden");
+    scoreboardArea.classList.add("hidden");
+    resetBtn.classList.add("hidden");
+    btn1.classList.add("hidden");
+    btn2.classList.add("hidden");
+    btn3.classList.add("hidden");
+    btn4.classList.add("hidden");
 
 
+    console.log(storedLeaderboard);
+    if (storedLeaderboard !== null) {
+        leaderboard = storedLeaderboard;
+        console.log(leaderboard);
+    }
+    console.log("end of init");
+    populateScoreboard();
+}
 
-
+init();
