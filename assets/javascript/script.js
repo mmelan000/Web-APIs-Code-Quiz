@@ -21,14 +21,8 @@ let currentAnswer, score, timeLeft, timeInterval;
 var answeredQuestions = 0;
 var leaderboard = [];
 var storedLeaderboard = JSON.parse(localStorage.getItem('highScore'));
-console.log(storedLeaderboard);
 // global variables
 
-
-// var pull = JSON.parse(localStorage.getItem('data'))
-// for (var i = 0; i < pull.length; i++) {
-//     new arrayName(pull[i].AnyName, pull[i].AnyName, pull[i].AnyName)
-// }
 var questions = [
     {
         question: 'test1',
@@ -72,15 +66,58 @@ var questions = [
         ]
     },
 ]
+// questions and answers
 
+function populateScoreboard() {
+    while (scoreboard.firstChild) {
+        scoreboard.removeChild(scoreboard.firstChild);
+    }
+    scoreboard.innerHTML = "";
+    console.log("start of PS")
+    for (var i = 0; i < leaderboard.length; i++) {
+        var leaderboardA = leaderboard[i].initials;
+        var leaderboardB = leaderboard[i].score;
+        console.log(leaderboardA);
+        var li = document.createElement("li");
+        li.textContent = leaderboardA + ": " + leaderboardB;
+        li.setAttribute("data-index", i);
 
-// ***Start Button***
+        scoreboard.appendChild(li);
+        console.log("end og populateScoreboard")
+    }
+}
+// renders HS table
 
-// What does it do?
-// hides the start and high scores buttons
-// reveals choices and timer
-// begins game
+function enterHighScore() {
+    introArea.classList.remove("hidden");
+    questionArea.classList.add("hidden");
+    timerArea.classList.add("hidden");
+    startBtn.classList.remove("hidden");
+    scoreboardBtn.classList.remove("hidden");
+    btn1.classList.add("hidden");
+    btn2.classList.add("hidden");
+    btn3.classList.add("hidden");
+    btn4.classList.add("hidden");
 
+    let initials = prompt("Please enter your initials.", "AAA");
+
+    if (initials === null) {
+        alert("Please enter your initials.");
+        enterHighScore;
+    } else if (initials.length > 3) {
+        alert("Initials must be 3 or less characters.")
+        enterHighScore;
+    } else {
+        console.log(leaderboard)
+        var highScore = {initials, score};
+        leaderboard.push(highScore);
+        leaderboard.sort((firstItem, secondItem) => firstItem.score - secondItem.score);
+        leaderboard.reverse();
+        localStorage.setItem('highScore', JSON.stringify(leaderboard));
+        window.location.reload();
+    }
+}
+// logs and store initials and score into localStorage
 
 function selectAnswer(event) {
     const selectedAnswer = event.target.textContent;
@@ -101,6 +138,7 @@ function selectAnswer(event) {
         nextQuestion();
     }
 }
+// runs check on answers and applies penalty if wong
 
 function nextQuestion() {
 
@@ -138,6 +176,7 @@ function nextQuestion() {
     btn3.addEventListener("click", selectAnswer);
     btn4.addEventListener("click", selectAnswer);
 }
+// ques next question and pulls already used questions out
 
 function timer() {
     timeLeft = 50;
@@ -165,6 +204,7 @@ function timer() {
         }
     }, 1000);
 }
+// timer, also ends game if time runs out
 
 function game() {
     timerArea.classList.remove("hidden");
@@ -182,35 +222,8 @@ function game() {
     timer();
     nextQuestion();
 }
+// initializes game and start timer
 
-// ****** THE GAME ******
-// what does it do?
-// starts timer
-// if timer runs out, game is over    
-
-// loads a random question in to text area, then removes answer from possible next choices
-// loads the corresponding answers into buttons
-// if question is answered correctly, REPEAT, until questions remaining == 0
-// if answers remaining == 0 log time, run enterHighscore
-startBtn.addEventListener("click", game)
-
-
-
-
-
-
-
-
-
-
-
-// ***View Highscores***
-// What does is do?
-// its a button that
-scoreboardBtn.addEventListener("click", viewHighScores);
-resetBtn.addEventListener("click", reset);
-// replaces .question with </table> containing data from local storage and
-// shows reset button, hides .text-area, and show </table> containing data from lS
 function viewHighScores() {
     populateScoreboard();
     introArea.classList.add("hidden");
@@ -219,66 +232,15 @@ function viewHighScores() {
     resetBtn.classList.remove("hidden");
 
 }
-//   ***Reset Button***
-// what does it do?
-// clears local storage then rerenders </ol>
+// displays HS table
+
 function reset() {   
     while (scoreboard.firstChild) {
         scoreboard.removeChild(scoreboard.firstChild);
     }
     localStorage.clear(); 
 }
-// function to enter high score
-function enterHighScore() {
-    introArea.classList.remove("hidden");
-    questionArea.classList.add("hidden");
-    timerArea.classList.add("hidden");
-    startBtn.classList.remove("hidden");
-    scoreboardBtn.classList.remove("hidden");
-    btn1.classList.add("hidden");
-    btn2.classList.add("hidden");
-    btn3.classList.add("hidden");
-    btn4.classList.add("hidden");
-
-    let initials = prompt("Please enter your initials.", "AAA");
-
-    if (initials === null) {
-        alert("Please enter your initials.");
-        enterHighScore;
-    } else if (initials.length > 3) {
-        alert("Initials must be 3 or less characters.")
-        enterHighScore;
-    } else {
-        console.log(leaderboard)
-        var highScore = {initials, score};
-        leaderboard.push(highScore);
-        leaderboard.sort((firstItem, secondItem) => firstItem.score - secondItem.score);
-        leaderboard.reverse();
-        localStorage.setItem('highScore', JSON.stringify(leaderboard));
-        window.location.reload();
-    }
-}
-
-// populate scoreboard
-
-function populateScoreboard() {
-    while (scoreboard.firstChild) {
-        scoreboard.removeChild(scoreboard.firstChild);
-    }
-    scoreboard.innerHTML = "";
-    console.log("start of PS")
-    for (var i = 0; i < leaderboard.length; i++) {
-        var leaderboardA = leaderboard[i].initials;
-        var leaderboardB = leaderboard[i].score;
-        console.log(leaderboardA);
-        var li = document.createElement("li");
-        li.textContent = leaderboardA + ": " + leaderboardB;
-        li.setAttribute("data-index", i);
-
-        scoreboard.appendChild(li);
-        console.log("end og populateScoreboard")
-    }
-}
+// resets scoreboard and refreshes page
 
 function init() {
 
@@ -300,5 +262,10 @@ function init() {
     console.log("end of init");
     populateScoreboard();
 }
+// preloads assignes classes and preloads HS board
+
+startBtn.addEventListener("click", game)
+scoreboardBtn.addEventListener("click", viewHighScores);
+resetBtn.addEventListener("click", reset);
 
 init();
