@@ -72,18 +72,18 @@ function populateScoreboard() {
     while (scoreboard.firstChild) {
         scoreboard.removeChild(scoreboard.firstChild);
     }
+
     scoreboard.innerHTML = "";
-    console.log("start of PS")
+
     for (var i = 0; i < leaderboard.length; i++) {
         var leaderboardA = leaderboard[i].initials;
         var leaderboardB = leaderboard[i].score;
-        console.log(leaderboardA);
         var li = document.createElement("li");
+    
         li.textContent = leaderboardA + ": " + leaderboardB;
         li.setAttribute("data-index", i);
 
         scoreboard.appendChild(li);
-        console.log("end og populateScoreboard")
     }
 }
 // renders HS table
@@ -108,31 +108,25 @@ function enterHighScore() {
         document.body.style.backgroundColor = "tan"
         alert("Next time, initials must be 3 or less characters.")
     } else {
-        console.log(leaderboard)
         var highScore = {initials, score};
+        
         leaderboard.push(highScore);
         leaderboard.sort((firstItem, secondItem) => firstItem.score - secondItem.score);
         leaderboard.reverse();
         localStorage.setItem('highScore', JSON.stringify(leaderboard));
-        window.location.reload();
     }
+    window.location.reload();
 }
 // logs and store initials and score into localStorage
 
 function selectAnswer(event) {
     const selectedAnswer = event.target.textContent;
-    console.log("The answer you selected was " + selectedAnswer);
 
     if (selectedAnswer !== currentAnswer) {
         document.body.style.backgroundColor = "red";
-        console.log("You have selected the Wrong Answer")
-        console.log(timeLeft = timeLeft - 10);
-        
-
+        timeLeft = timeLeft - 10;     
     } else {
-        document.body.style.backgroundColor = "green";
-        console.log("You have selected the Correct Answer")
-        
+        document.body.style.backgroundColor = "green";      
     }
 
     if (timeLeft < 1) {
@@ -150,12 +144,9 @@ function selectAnswer(event) {
 function nextQuestion() {
 
     var j = Math.floor((Math.random() * questions.length));
-    console.log("Question " + j + " is being chosen.")
     var currentQuestion = questions[j];
 
-    console.log("The current question is " + JSON.stringify(currentQuestion));
     questions.splice(j, 1);
-    console.log("The number of remaining questions is " + questions.length);
 
     questionArea.textContent = currentQuestion.question;
 
@@ -166,16 +157,12 @@ function nextQuestion() {
 
     if (currentQuestion.answers[0].correct === true) {
         currentAnswer = currentQuestion.answers[0].text
-        console.log("This is the current answer: " + currentAnswer);
     } else if (currentQuestion.answers[1].correct === true) {
         currentAnswer = currentQuestion.answers[1].text
-        console.log("This is the current answer: " + currentAnswer);
     } else if (currentQuestion.answers[2].correct === true) {
         currentAnswer = currentQuestion.answers[2].text
-        console.log("This is the current answer: " + currentAnswer);
     } else {
         currentAnswer = currentQuestion.answers[3].text
-        console.log("This is the current answer: " + currentAnswer);
     }
 
     btn1.addEventListener("click", selectAnswer);
@@ -186,8 +173,7 @@ function nextQuestion() {
 // ques next question and pulls already used questions out
 
 function timer() {
-    timeLeft = 50;
-    // var 
+    timeLeft = 50; 
     timeInterval = setInterval(function () {
         if (timeLeft > 1) {
             timeRemaining.textContent = timeLeft + ' seconds';
@@ -262,13 +248,10 @@ function init() {
     btn3.classList.add("hidden");
     btn4.classList.add("hidden");
 
-
-    console.log(storedLeaderboard);
     if (storedLeaderboard !== null) {
         leaderboard = storedLeaderboard;
-        console.log(leaderboard);
     }
-    console.log("end of init");
+
     populateScoreboard();
 }
 // preloads assignes classes and preloads HS board
