@@ -184,17 +184,7 @@ function timer() {
         } else {
             alert("Better luck next time. Please try again.");
             clearInterval(timeInterval);
-            introArea.classList.remove("hidden");
-            questionArea.classList.add("hidden");
-            timerArea.classList.add("hidden");
-            startBtn.classList.remove("hidden");
-            scoreboardBtn.classList.remove("hidden");
-            btn1.classList.add("hidden");
-            btn2.classList.add("hidden");
-            btn3.classList.add("hidden");
-            btn4.classList.add("hidden");
-            document.body.style.backgroundColor = "tan";
-            return;
+            window.location.reload();
         }
     }, 1000);
 }
@@ -233,7 +223,6 @@ function reset() {
         scoreboard.removeChild(scoreboard.firstChild);
     }
     localStorage.clear();
-    window.location.reload();
 }
 // resets scoreboard and refreshes page
 
