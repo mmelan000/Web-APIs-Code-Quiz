@@ -26,6 +26,10 @@ h2 {
   font-size: 1.5rem;
 }
 
+#rules {
+  font-size: 2rem;
+}
+
 #correct {
   background-color: green;
 }
