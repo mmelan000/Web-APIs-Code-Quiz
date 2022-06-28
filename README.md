@@ -36,7 +36,7 @@ THEN I can save my initials and my score
 
 ![App Screenshot](./assets/images/landing.png)
 
-![App Screenshot](./assets/images/hs.png)
+![App Screenshot](./assets/images/highscores.png)
 
 ![App Screenshot](./assets/images/question.png)
 
