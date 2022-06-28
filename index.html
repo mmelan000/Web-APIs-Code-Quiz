@@ -10,36 +10,42 @@
 </head>
 
 <body>
-  <div id="timer-area">
-    <p id="time-remaining"></p>
-  </div>
-  <!-- timer section -->
   <div id="game-area">
-    <header id="header">
-      <h1>Coding Quiz</h1>
+    <header>
+      <div id="header">
+        <h1>Coding Quiz</h1>
+      </div>
+      <div id="timer-area">
+        <h2>Time Remaining:<br><span id="time-remaining"> </span></h2>
+      </div>
     </header>
-    <div id="intro-area">
-      <p id="intro">Welcome to my coding quiz.</p>
-    </div>
-    <div id="question-area"></div>
-    <p id="question"></p>
-  </div>
-  <div id="scoreboard-area">
-    <ol id="scoreboard"></ol>
-  </div>
-  <div id="buttons">
-    <button id="start">Start</button>
-    <!-- start button -->
-    <button id="high-score">View High Scores</button>
-    <!-- highscore button -->
-    <button id="reset">Reset Scoreboard</button>
-    <!-- resets highscores -->
-    <button id="btn1">1.</button>
-    <button id="btn2">2.</button>
-    <button id="btn3">3.</button>
-    <button id="btn4">4.</button>
-    <!-- answer buttons -->
-  </div>
+
+    <!-- timer section -->
+    <section id = "content">
+      <div id="intro-area">
+        <p id="intro">Welcome to my coding quiz.</p>
+      </div>
+      <div id="question-area">
+        <p id="question"></p>
+      </div>
+      <div id="scoreboard-area">
+        <h2>High Scores</h2>
+        <ol id="scoreboard"></ol>
+      </div>
+    </section>
+    <section id="buttons">
+      <button id="start">Start</button>
+      <!-- start button -->
+      <button id="high-score">View High Scores</button>
+      <!-- highscore button -->
+      <button id="reset">Reset Scoreboard</button>
+      <!-- resets highscores -->
+      <button id="btn1">1.</button>
+      <button id="btn2">2.</button>
+      <button id="btn3">3.</button>
+      <button id="btn4">4.</button>
+      <!-- answer buttons -->
+    </section>
   </div>
 
   <script src="./assets/javascript/script.js"></script>

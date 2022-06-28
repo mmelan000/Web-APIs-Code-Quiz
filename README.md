@@ -1,23 +1,15 @@
-# 04 Web APIs: Code Quiz
+# Challenge-04-Web-APIs-Code-Quiz
 
-## Your Task
+The objective of this assignment is to build a trivia app that can runs on a timer, has a time penalty for wrong answers, and can store the time left as a score that can be later viewed on a high scoreboard.
 
-At some point in your journey to become a full-stack web developer, you’ll likely be asked to complete a coding assessment&mdash;perhaps as part of an interview process. A typical coding assessment includes both multiple-choice questions and interactive coding challenges. 
-
-To help familiarize you with these tests and allow you to use the skills covered in this module, this Challenge invites you to build a timed coding quiz with multiple-choice questions. This app will run in the browser and will feature dynamically updated HTML and CSS powered by JavaScript code that you write. It will have a clean, polished, and responsive user interface. 
-
-This week’s coursework will equip you with all the skills you need to succeed in this assignment.
-
-## User Story
-
+**User Story**
 ```
 AS A coding boot camp student
 I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
 SO THAT I can gauge my progress compared to my peers
 ```
 
-## Acceptance Criteria
-
+**Acceptance Criteria**
 ```
 GIVEN I am taking a code quiz
 WHEN I click the start button
@@ -32,69 +24,32 @@ WHEN the game is over
 THEN I can save my initials and my score
 ```
 
-## Mock-Up
+---
 
-The following animation demonstrates the application functionality:
+## Authors
 
-![A user clicks through an interactive coding quiz, then enters initials to save the high score before resetting and starting over.](./Assets/04-web-apis-homework-demo.gif)
-
-## Grading Requirements
-
-> **Note**: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
->
-> * A repository that has no code
->
-> * A repository that includes a unique name but nothing else
->
-> * A repository that includes only a README file but nothing else
->
-> * A repository that only includes starter code
-
-This Challenge is graded based on the following criteria: 
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the preceding acceptance criteria.
-
-### Deployment: 32%
-
-* Application deployed at live URL.
-
-* Application loads with no errors.
-
-* Application GitHub URL submitted.
-
-* GitHub repository contains application code.
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate.
-
-* Application user interface style is clean and polished.
-
-* Application resembles the mock-up functionality provided in the Challenge instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository, with a unique name and a readme describing the project.
+- [@Michael Melanson](https://github.com/mmelan000)
 
 ---
 
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
-# Challenge-04-Web-APIs-Code-Quiz
+## Screenshots
+
+![App Screenshot](./assets/images/landng.png)
+![App Screenshot](./assets/images/hs.png)
+![App Screenshot](./assets/images/question.png)
+
+---
+
+## Optimizations
+
+- Question array that can be added or subtracted from without editing code.
+- High Scoreboard that organizes all highscores by value.
+- Visual cues as to whether and answer was right or wrong.
+
+---
+
+## Deployment
+
+https://mmelan000.github.io/Challenge-04-Web-APIs-Code-Quiz/
+
+---

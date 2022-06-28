@@ -17,7 +17,7 @@ const btn2 = document.querySelector("#btn2");
 const btn3 = document.querySelector("#btn3");
 const btn4 = document.querySelector("#btn4");
 // buttons on doc
-let currentAnswer, score, timeLeft, timeInterval;
+var currentAnswer, score, timeLeft, timeInterval;
 var answeredQuestions = 0;
 var leaderboard = [];
 var storedLeaderboard = JSON.parse(localStorage.getItem('highScore'));
@@ -25,44 +25,44 @@ var storedLeaderboard = JSON.parse(localStorage.getItem('highScore'));
 
 var questions = [
     {
-        question: 'test1',
+        question: '_____________ is very useful for toubleshooting JavaScript.',
         answers: [
-            { text: '1a', correct: false },
-            { text: '1b', correct: false },
-            { text: '1c', correct: false },
-            { text: '1d', correct: true }
+            { text: 'Daniel Gross', correct: false },
+            { text: 'A hammer', correct: false },
+            { text: 'function', correct: false },
+            { text: 'console.log()', correct: true }
         ]
     }, {
-        question: 'test2',
+        question: 'var x = false; if (x) {console.log("false") will return what in the console?',
         answers: [
-            { text: '2a', correct: false },
-            { text: '2b', correct: false },
-            { text: '2c', correct: true },
-            { text: '2d', correct: false }
+            { text: 'false', correct: false },
+            { text: 'undefined', correct: false },
+            { text: 'nothing', correct: true },
+            { text: 'true', correct: false }
         ]
     }, {
-        question: 'test3',
+        question: 'A function that calls itself is known as _________.',
         answers: [
-            { text: '3a', correct: false },
-            { text: '3b', correct: true },
-            { text: '3c', correct: false },
-            { text: '3d', correct: false }
+            { text: 'a loop', correct: false },
+            { text: 'recursive', correct: true },
+            { text: 'pain', correct: false },
+            { text: 'How is this question going to help me?', correct: false }
         ]
     }, {
-        question: 'test4',
+        question: 'The math operators that are supported by JavaScript are:',
         answers: [
-            { text: '4a', correct: true },
-            { text: '4b', correct: false },
-            { text: '4c', correct: false },
-            { text: '4d', correct: false }
+            { text: '+, -, *, /, %, **', correct: true },
+            { text: '867-5309', correct: false },
+            { text: 'Who needs math?', correct: false },
+            { text: '+, -, *, /, %, ^', correct: false }
         ]
     }, {
-        question: 'test5',
+        question: 'Which bug emoji is the correct one?',
         answers: [
-            { text: '5a', correct: false },
-            { text: '5b', correct: false },
-            { text: '5c', correct: false },
-            { text: '5d', correct: true }
+            { text: 'This is a dumb argument.', correct: false },
+            { text: 'The Linux bug emoji.', correct: false },
+            { text: 'The Apple bug emoji.', correct: false },
+            { text: 'The Windows bug emoji.', correct: true }
         ]
     },
 ]
@@ -102,11 +102,11 @@ function enterHighScore() {
     let initials = prompt("Please enter your initials.", "AAA");
 
     if (initials === null) {
-        alert("Please enter your initials.");
-        enterHighScore;
+        document.body.style.backgroundColor = "tan"
+        alert("Please enter your initials, next time.");
     } else if (initials.length > 3) {
-        alert("Initials must be 3 or less characters.")
-        enterHighScore;
+        document.body.style.backgroundColor = "tan"
+        alert("Next time, initials must be 3 or less characters.")
     } else {
         console.log(leaderboard)
         var highScore = {initials, score};
@@ -124,13 +124,20 @@ function selectAnswer(event) {
     console.log("The answer you selected was " + selectedAnswer);
 
     if (selectedAnswer !== currentAnswer) {
+        document.body.style.backgroundColor = "red";
         console.log("You have selected the Wrong Answer")
         console.log(timeLeft = timeLeft - 10);
+        
+
     } else {
+        document.body.style.backgroundColor = "green";
         console.log("You have selected the Correct Answer")
+        
     }
 
-    if (questions.length === 0) {
+    if (timeLeft < 1) {
+        return;
+    } else if (questions.length === 0) {
         clearInterval(timeInterval);
         score = timeLeft;
         enterHighScore();
@@ -183,10 +190,10 @@ function timer() {
     // var 
     timeInterval = setInterval(function () {
         if (timeLeft > 1) {
-            timeRemaining.textContent = timeLeft + ' seconds remaining';
+            timeRemaining.textContent = timeLeft + ' seconds';
             timeLeft--;
         } else if (timeLeft === 1) {
-            timeRemaining.textContent = timeLeft + ' second remaining';
+            timeRemaining.textContent = timeLeft + ' second';
             timeLeft--;
         } else {
             alert("Better luck next time. Please try again.");
@@ -200,6 +207,7 @@ function timer() {
             btn2.classList.add("hidden");
             btn3.classList.add("hidden");
             btn4.classList.add("hidden");
+            document.body.style.backgroundColor = "tan";
             return;
         }
     }, 1000);
@@ -218,7 +226,7 @@ function game() {
     btn2.classList.remove("hidden");
     btn3.classList.remove("hidden");
     btn4.classList.remove("hidden");
-
+    clearInterval(timeInterval);
     timer();
     nextQuestion();
 }
@@ -238,7 +246,8 @@ function reset() {
     while (scoreboard.firstChild) {
         scoreboard.removeChild(scoreboard.firstChild);
     }
-    localStorage.clear(); 
+    localStorage.clear();
+    window.location.reload();
 }
 // resets scoreboard and refreshes page
 
