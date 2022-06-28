@@ -46,7 +46,7 @@ THEN I can save my initials and my score
 
 - Question array that can be added or subtracted from without editing code.
 - High Scoreboard that organizes all highscores by value.
-- Visual cues as to whether and answer was right or wrong.
+- Visual cues as to whether an answer was right or wrong.
 
 ---
 
