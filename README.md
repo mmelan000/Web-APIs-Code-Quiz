@@ -1,6 +1,9 @@
-# Challenge-04-Web-APIs-Code-Quiz
+# Web-APIs-Code-Quiz
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)   
 
-The objective of this assignment is to build a trivia app that can runs on a timer, has a time penalty for wrong answers, and can store the time left as a score that can be later viewed on a high scoreboard.
+## Description  
+
+The objective of this challenge is to build a trivia app that can runs on a timer, has a time penalty for wrong answers, and can store the time left as a score that can be later viewed on a high scoreboard.
 
 **User Story**
 ```
@@ -24,15 +27,17 @@ WHEN the game is over
 THEN I can save my initials and my score
 ```
 
----
+## Table of Contents  
+1. [Description](#description)
+2. [Deployment](#deployment)
+3. [Optimizations](#optimizations)
+4. [Contributing](#contributing)  
+5. [Questions](#questions)  
+6. [License](#license)
 
-## Authors
+## Deployment
 
-- [@Michael Melanson](https://github.com/mmelan000)
-
----
-
-## Screenshots
+[Deployed Website](https://mmelan000.github.io/Web-APIs-Code-Quiz/)
 
 ![App Screenshot](./assets/images/landing.png)
 
@@ -40,18 +45,22 @@ THEN I can save my initials and my score
 
 ![App Screenshot](./assets/images/question.png)
 
----
-
 ## Optimizations
 
 - Question array that can be added or subtracted from without editing code.
 - High Scoreboard that organizes all highscores by value.
 - Visual cues as to whether an answer was right or wrong.
 
----
+## Contributing  
 
-## Deployment
+Follow best practices for naming conventions, indentation, quality comments, etc.  
 
-https://mmelan000.github.io/Challenge-04-Web-APIs-Code-Quiz/
+## Questions  
 
----
+If you have any questions, please reach out to me either on Github or by Email.
+  - **Github:** [mmelan000](https://github.com/mmelan000)
+  - **Email:** [m.melanson000@gmail.com](mailto:m.melanson000@gmail.com)
+
+## License  
+
+- [MIT](https://opensource.org/licenses/MIT)
